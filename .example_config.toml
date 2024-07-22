@@ -1,0 +1,30 @@
+
+max_concurrent_workers = 16
+backup_path = "C:/Users/MyName/Documents/RepositoriesBackups"
+exclude_repositories = [
+    "MyName/AnOldRepo",
+    "MyName/AnArchivedRepoThaIDontWant",
+    "MyNameOrganization/AnArchivedRepoThaIDontWant",
+    "MyUpperGroup/MysecondGroup/AnOldGitLabRepo",
+]
+
+[language_mapping]
+web_front = ["javascript", "html", "css"]
+python = ["python"]
+c-lang = ["cplusplus", "c++", "c", "clang", "c-language"]
+matlab = ["matlab"]
+documentation = ["doc", "documentation"]
+jupyter_notebooks = ["jupyter notebook", "jupyter-notebook", "notebook"]
+
+[[platforms]]
+api_class = "GitHubApi"
+token = "ghp_1234567890abcdefghijklmnopqrstuvwx"
+username = "MyName"
+visibility = "all"
+
+[[platforms]]
+api_class = "GitLabApi"
+server = "gitlab.com"
+api_version = 4
+token = "1234567890abcdefghijklmnopq"
+username = "MyName"

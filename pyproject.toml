@@ -1,0 +1,22 @@
+[project]
+name = "git_backuper"
+version = "0.1.0"
+description = "A python CLI tool to backup locally a whole bunch of git repos from your git platforms accounts, all in one go."
+authors = [
+    { name = "JostTim", email = "44769559+JostTim@users.noreply.github.com" },
+]
+dependencies = ["requests>=2.32.3"]
+requires-python = ">=3.12"
+readme = "README.md"
+license = { text = "MIT" }
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[project.scripts]
+git-backuper = "git_backuper.git_backuper:run"
+
+[tool.pdm]
+distribution = true

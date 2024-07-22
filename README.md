@@ -5,25 +5,28 @@ Git Backups !
 
 ## How to use :
 
-clone with :
+- clone with :
 
-`git clone https://github.com/JostTim/git_backuper`
+    `git clone https://github.com/JostTim/git_backuper`
 
-go to the repo that you pulled with :
+- go to the repo that you pulled with :
 
-`cd C:/users/MyName/git_backuper`
+    `cd C:/users/MyName/git_backuper`
 
-install with pdm by running : 
+- install with pdm by running : 
 
-`pdm install`
+    `pdm install`
 
-(Note : if not already available for you, you can install pdm with ``pip install pdm``. This git_backuper package can of course also be installed and used with pip if you prefer. But i like to advocate for pdm as it is very nice and automatically makes your projects scoped in their environment to avoid having big piles of anaconda environments)
+    (Note : if not already available for you, you can install pdm with ``pip install pdm``. This git_backuper package can of course also be installed and used with pip if you prefer. But i like to advocate for pdm as it is very nice and automatically makes your projects scoped in their environment to avoid having big piles of anaconda environments)
 
-Enter the url of the git platform you want to dump your repos from in the **config file** (only github and gitlab servers are supported right now, I might add gitbucket API etc.. later), tune it more as you like. (infos about the config below)
+- **`edit the config to your needs`**
 
-then run :
+    Enter the url of the git platform you want to dump your repos from in the **config file** (only github and gitlab servers are supported right now, I might add gitbucket API etc.. later), tune it more as you like.  
+    (**find detailed infos about the config tuning below**)
 
-`pdm run git-backuper`
+- then run :
+
+    `pdm run git-backuper`
 
 ## Edit the config :
 
@@ -51,6 +54,43 @@ Have a look at the ``.example_config.toml`` and find infos about the fields here
 - `language_mapping` : 
     This allows you to tune how the repose are organized in the `backup_path`/`organization or username` folder.
     They try to follow a language name that you supplied in the topics of the repo or the most used language (in that priority order). The mapping allows you to set `key` : wich subfolder to direct the repo backed up to, `values` in wich conditions matched. (topics are matched against your values, if non matches, the most used language does the same, if still not matched, the subfolder will be : `other`)
+
+## Example config : 
+
+file **`.secret_config.toml`**
+located at the root of the repo (same folder where the src and pyproject.toml sits)
+
+```toml
+max_concurrent_workers = 16
+backup_path = "C:/Users/MyName/Documents/RepositoriesBackups"
+exclude_repositories = [
+    "MyName/AnOldRepo",
+    "MyName/AnArchivedRepoThaIDontWant",
+    "MyNameOrganization/AnArchivedRepoThaIDontWant",
+    "MyUpperGroup/MysecondGroup/AnOldGitLabRepo",
+]
+
+[language_mapping]
+web_front = ["javascript", "html", "css"]
+python = ["python"]
+c-lang = ["cplusplus", "c++", "c", "clang", "c-language"]
+matlab = ["matlab"]
+documentation = ["doc", "documentation"]
+jupyter_notebooks = ["jupyter notebook", "jupyter-notebook", "notebook"]
+
+[[platforms]]
+api_class = "GitHubApi"
+token = "ghp_1234567890abcdefghijklmnopqrstuvwx"
+username = "MyName"
+visibility = "all"
+
+[[platforms]]
+api_class = "GitLabApi"
+server = "gitlab.com"
+api_version = 4
+token = "1234567890abcdefghijklmnopq"
+username = "MyName"
+```
 
 ## VERY IMPORTANT :
 Note that his code is meant to make backups of all your various repositories available online (public as well as private, thanks to the token. Right now i didn't make a public only version that would not need a token to work, but i might in the future), and automate their frequent update to stay on the latest version available of the repos.
